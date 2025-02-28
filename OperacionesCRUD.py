@@ -15,14 +15,14 @@ def get_connection():
         print("Error al conectar a la base de datos:", e)
         return None
 
-def create(id, name):
+def create(id, name, email):
     conn = get_connection()
     if conn:
         try:
             cursor = conn.cursor()
-            cursor.execute("INSERT INTO Test (id, name) VALUES (%s, %s)", (id, name))
+            cursor.execute("INSERT INTO Test (id, name, email) VALUES (%s, %s, %s)", (id, name, email))
             conn.commit()
-            print(f" Registro insertado: ({id}, {name})")
+            print(f" Registro insertado: ({id}, {name}, {email})")
         except Exception as e:
             print("Error al insertar:", e)
         finally:
@@ -69,11 +69,28 @@ def delete(id):
         finally:
             conn.close()
 
+def read_where_name(name):
+    conn = get_connection()
+    if conn:
+        try:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM Test WHERE name = %s", (name))
+            records = cursor.fetchall()
+            print(f"Resgistros de {name} en la tabla Test:")
+            for row in records:
+                print(row)
+        except Exception as e:
+            print(f"Error al buscar {name} nombre")
+        finally:
+            conn.close()
+
 # Ejemplo de uso:
 if __name__ == "__main__":
-    create(3, "Mando")         # Crea un nuevo registro
+    create(3, "Mando", "pedroPascal@gmail.com")         # Crea un nuevo registro
     read()                     # Lee todos los registros
     update(3, "Mandalorian")   # Actualiza el registro con ID 3
     read()                     # Verifica la actualización
     delete(3)                  # Elimina el registro con ID 3
     read()                     # Verifica la eliminación
+    create(3, "Mando", "pedroPascal@gmail.com")
+    read_where_name("Mando")

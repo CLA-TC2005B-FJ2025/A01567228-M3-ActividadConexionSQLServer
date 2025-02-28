@@ -14,7 +14,7 @@ try:
 
     # Crear tabla de ejemplo
     cursor.execute("CREATE TABLE Test (id INT PRIMARY KEY, name NVARCHAR(50), email NVARCHAR(100) )")
-    cursor.execute("INSERT INTO Test (id, name) VALUES (1, 'Alice'), (2, 'Bob')")
+    cursor.execute("INSERT INTO Test (id, name, email) VALUES (1, 'Alice', 'Alice@gmail.com'), (2, 'Bob','Bob@gmail.com')")
     conn.commit()
 
     # Consultar los datos
