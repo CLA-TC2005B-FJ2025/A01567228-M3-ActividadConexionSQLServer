@@ -1,0 +1,9 @@
+{
+    "name": "Python + SQL Server",
+    "image": "mcr.microsoft.com/devcontainers/python:3.11",
+    "features": {
+      "docker-in-docker": "latest"
+    },
+    "postCreateCommand": "pip install pymssql"
+}
+
